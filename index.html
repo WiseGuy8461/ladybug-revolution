@@ -1,0 +1,251 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Ladybug Revolution</title> 
+
+    <style> 
+        #simulation { 
+            position: relative; 
+            width: 1250px; 
+            height: 550px; 
+        } 
+ 
+        #display {
+            position: relative;
+            width: 1250px;
+            height: 600px;
+        }
+        #spinnerViewport {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1250px;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        #spinnerCanvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgb(186, 249, 186);
+            z-index: 1;
+        }
+
+        #graphs {
+            position: absolute;
+            top: 0;
+            left: 350px;
+
+            display: none;
+
+            width: 900px;
+            height: 180px;
+
+            background-color: white;
+
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+
+            gap: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        #graphs canvas {
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 2;
+        }
+
+ 
+        #controls { 
+            position: absolute; 
+            left: 0; 
+            bottom: 0; 
+            width: 250px; 
+            height: 215px; 
+            background: #eeeecc; 
+            padding: 10px; 
+            z-index: 3;
+        } 
+ 
+        #bottomControls { 
+            position: absolute; 
+            bottom: 0; 
+            left: 10%; 
+            transform: translateX(-50%); 
+            height: 50px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            z-index: 4;
+        } 
+
+        #velocityLabel {
+            color: #ff0000;
+        }
+
+        #accelerationLabel {
+            color: blue;
+        }
+
+        input[type="number"] { 
+            width: 50px; 
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .slider-row span {
+            font-size: 12px;
+        }
+    </style> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head> 
+ 
+<body> 
+     
+    <div id="simulation"> 
+        <div id="tabs">
+            <button id="simulationTab">Simulation</button>
+            <button id="graphsTab">Graphs</button>
+        </div>
+        <div id="display">
+            <div id="spinnerViewport">
+                <canvas id="spinnerCanvas" width="1250" height="600"></canvas>
+            </div>
+            <div id="graphs">
+                <canvas id="thetaGraph"></canvas>
+                <canvas id="omegaGraph"></canvas>
+                <canvas id="positionGraph"></canvas>
+            </div> 
+        </div>
+        <div id="controls"> 
+ 
+            <button id="resetButton">Reset All</button> 
+ 
+            <div> 
+                <label id="velocityLabel"> 
+                    <input type="checkbox" id="velocityBox"> 
+                    Show Velocity Vector 
+                </label> 
+            </div> 
+ 
+            <div> 
+                <label id="accelerationLabel"> 
+                    <input type="checkbox" id="accelerationBox"> 
+                    Show Acceleration Vector 
+                </label> 
+            </div> 
+ 
+            <div class="control"> 
+                <label for="angleSlider"> 
+                    Starting Angle 
+                    <input
+                        type="number"
+                        id="angleInput"
+                        min="-720"
+                        max="720"
+                        step="1"
+                        value="0"
+                    >
+                    degrees 
+                </label> 
+
+                <div class="slider-row">
+                    <span>-720°</span>
+
+                    <input 
+                        type="range" 
+                        id="angleSlider" 
+                        min="-720" 
+                        max="720" 
+                        step="1" 
+                        value="0" 
+                    >
+
+                    <span>720°</span>
+                </div>
+            </div> 
+ 
+            <div class="control"> 
+                <label for="omegaSlider"> 
+                    Angular Velocity 
+                    <input
+                        type="number"
+                        id="omegaInput"
+                        min="-286.48"
+                        max="286.48"
+                        step="1"
+                        value="45"
+                    > 
+                    degrees/s 
+                </label> 
+
+                <div class="slider-row">
+                    <span>-286.48</span>
+
+                    <input 
+                        type="range" 
+                        id="omegaSlider" 
+                        min="-286.48" 
+                        max="286.48" 
+                        step="0.01" 
+                        value="45" 
+                    >
+
+                    <span>286.48</span>
+                </div>
+            </div> 
+
+            <div class="control">  
+                <label for="torqueSlider">  
+                    Torque  
+                    <input 
+                        type="number" 
+                        id="torqueInput" 
+                        min="-5" 
+                        max="5" 
+                        step="0.01" 
+                        value="0" 
+                    >  
+                    N·m
+                </label>  
+
+                <div class="slider-row"> 
+                    <span>-5</span> 
+
+                    <input  
+                        type="range"  
+                        id="torqueSlider"  
+                        min="-5"  
+                        max="5"  
+                        step="0.01"  
+                        value="0" 
+                    > 
+
+                    <span>5</span> 
+                </div> 
+            </div>
+
+
+ 
+        </div> 
+ 
+        <div id="bottomControls"> 
+            <button id="pauseButton">Start/Stop</button> 
+            <button id="stepButton">Step</button> 
+        </div> 
+     
+    </div> 
+ 
+    <script src="sketch.js"></script> 
+ 
+</body> 
+</html>
