@@ -445,7 +445,7 @@ const omegaGraph = new Chart(
         type: "line",
         data: {
             datasets: [{
-                label: "Ladybug Angular Velocity",
+                label: "Angular Velocity",
                 data: [],
                 borderWidth: 2,
                 pointRadius: 0
