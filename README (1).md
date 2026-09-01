@@ -1,7 +1,7 @@
 # Ladybug Revolution Simulation
 
 ## Author
-[Your Name]
+Ishaan Naik
 
 ## Purpose
 
@@ -66,4 +66,4 @@ The horizontal axis represents time, while the vertical axes show the correspond
 
 The following flowchart shows the main structure of the program and how user interactions connect to the simulation.
 
-![Program Flowchart](flowchart.png)
+![Program Flowchart](Ladybug_Revolution_Flowchart.png)
